@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Valentine's Surprise ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin:0;
+      font-family: 'Segoe UI', sans-serif;
+      overflow:hidden;
+      background: radial-gradient(circle at top, #1b0033, #000);
+      color:white;
+      text-align:center;
+      height:100vh;
+    }
+
+    .screen {
+      position:absolute;
+      top:0; left:0; width:100%; height:100%;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      transition:opacity 0.5s;
+    }
+
+    .screen.hidden { opacity:0; pointer-events:none; }
+
+    h1 { font-size:50px; margin-bottom:20px; text-shadow:0 0 20px hotpink; }
+
+    button {
+      padding:15px 35px;
+      font-size:24px;
+      border:none;
+      border-radius:40px;
+      background: linear-gradient(45deg,#ff4d88,#ff1a75);
+      color:white;
+      cursor:pointer;
+      box-shadow:0 0 20px hotpink;
+      animation:pulse 1.2s infinite;
+    }
+    @keyframes pulse {
+      0%{transform:scale(1);}
+      50%{transform:scale(1.1);}
+      100%{transform:scale(1);}
+    }
+    
+    img.introImage {
+      width:250px;
+      height:250px;
+      object-fit:cover;
+      margin-bottom:20px;
+      border-radius:50%;
+      border:4px solid hotpink;
+      box-shadow:0 0 30px hotpink;
+    }
+
+    .heart { position:fixed; top:-10px; font-size:22px; animation:fall linear infinite; }
+    @keyframes fall {
+      0%{transform:translateY(-10vh);opacity:1;}
+      100%{transform:translateY(110vh);opacity:0;}
+    }
+
+    .star {
+      position: fixed;
+      background:white;
+      border-radius:50%;
+      opacity:0.8;
+      animation: twinkle 2s infinite alternate;
+    }
+    @keyframes twinkle {
+      0%{opacity:0.3;}
+      50%{opacity:1;}
+      100%{opacity:0.3;}
+    }
+    
+    #loveMessage {
+      display:none;
+      margin-top:30px;
+      font-size:22px;
+      color:#ffb3d9;
+      text-shadow:0 0 10px pink;
+    }
+
+    .box {
+      background: rgba(255,255,255,0.08);
+      padding:25px;
+      border-radius:22px;
+      margin:20px;
+      backdrop-filter: blur(6px);
+    }
+
+    .proposal {
+      margin-top:20px;
+      font-size:24px;
+      color:#ffd6e8;
+      text-shadow:0 0 12px hotpink;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Intro Screen -->
+<div class="screen" id="introScreen">
+  <!-- IMAGE ADDED HERE -->
+  <img src="kruthik.jpg" alt="Kruthik ❤️" class="introImage">
+  <h1>Valentine's Day ❤️</h1>
+  <button onclick="showMain()">YES ❤️</button>
+</div>
+
+<!-- Main Romantic Screen -->
+<div class="screen hidden" id="mainScreen">
+  <div class="box" id="mainBox">
+    <p>
+      Hey my love 🥰<br><br>
+      It’s incredible to think about how our journey began on Snapchat, and now we are <b>almost a year together</b> in this beautiful virtual love story of ours. Every chat, every silly snap, every little moment we’ve shared has filled my heart with so much happiness and warmth. Even though we haven’t met in person yet, it feels like I’ve known you forever. You are not just my boyfriend, you are my <b>safe place</b>, my <b>dream come true</b>, my <b>everything</b> ❤️<br><br>
+      Every time you call me “nana” or send me a message, I feel a joy that words can’t describe. You’ve made my days brighter, my nights softer, and my world infinitely more beautiful. I love you so, so much Kruthik ❤️, more than I could ever explain.<br><br>
+      This Valentine’s Day, I just want you to know how deeply you mean to me. You are my Valentine today, tomorrow, and forever 💖
+    </p>
+
+    <div class="proposal">
+      Ee ratri sakshiga…<br>
+      naa jeevitham motham naa Valentine ga untava? 💍💞
+    </div>
+
+    <button onclick="playSong()">YES ❤️</button>
+  </div>
+
+  <div id="loveMessage">
+    🥹💖<br>
+    Ee YES naa jeevitham lo andamaina kshanam…<br>
+    Nuvvu naa kalalu nijam chesav 💞<br><br>
+    Forever yours,<br>
+    <b>Nana ❤️</b>
+  </div>
+  
+  <div id="player"></div>
+</div>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+let player;
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player('player', {
+    height:'0', width:'0',
+    videoId:'D_Fj8hGYzXc',
+    playerVars:{ autoplay:0, loop:1, playlist:'D_Fj8hGYzXc' }
+  });
+}
+
+// Falling hearts
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className="heart";
+  heart.innerHTML="💖";
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.animationDuration=(4+Math.random()*4)+"s";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),8000);
+},250);
+
+// Stars
+for(let i=0;i<120;i++){
+  const star = document.createElement("div");
+  star.className="star";
+  star.style.top=Math.random()*100+"vh";
+  star.style.left=Math.random()*100+"vw";
+  const size=Math.random()*2+1;
+  star.style.width=size+"px";
+  star.style.height=size+"px";
+  star.style.animationDuration=(1+Math.random()*2)+"s";
+  document.body.appendChild(star);
+}
+
+function showMain(){
+  document.getElementById("introScreen").classList.add("hidden");
+  document.getElementById("mainScreen").classList.remove("hidden");
+}
+
+function playSong(){
+  document.getElementById("mainBox").style.display="none";
+  document.getElementById("loveMessage").style.display="block";
+  if(player) player.playVideo();
+}
+</script>
+
+</body>
+</html>
